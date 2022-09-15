@@ -2,127 +2,51 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import Header from '../components/Header'
+import MultiSearch from '../components/Multisearch'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
+import type { SearchData } from '../utils/interface'
 const apiKey = "api_key=4cc551bdbec360295f6123a443e43bb9"
 
 const Home: NextPage = () => {
   const [data, setData] = useState<SearchData | null>(null)
-  interface SearchResult{
-    adult?: boolean;
-    backdrop_path?: string;
-    genre_ids?:number[];
-    id: number;
-    media_type?: string;
-    original_language?:string;
-    original_title?:string;
-    overview?:string;
-    popularity?: number;
-    poster_path?:string;
-    realease_date?:string;
-    title?:string;
-    video?:boolean;
-    vote_average?:number;
-    vote_count?:number;
-  }
-  interface SearchData{
-    data:{
-      page: number;
-      results: SearchResult[];
-      total_pages: number;
-      total_results: number;
-    }
-  }
+  const [searching, setSearching] = useState<boolean>(false)
 
   useEffect(()=>{
     console.log(data)
   },[data])
 
-  async function runSearch(type: string, searchItem: string | null){
+  const runSearch:(type:string, searchItem:string) => Promise<SearchData | undefined> = async function(type, searchItem){
     let url = ""
-    
-    switch(type){
-      case ("multi"):
-        url = `https://api.themoviedb.org/3/search/multi?${apiKey}&language=en-US&query=${searchItem}&page=1&include_adult=false`
-        
-        if(searchItem){
-          searchItem = encodeURI(searchItem)
-          await axios.get(url)
-              .then((response) => {
-                  setData(response.data.results)
-                  console.log(response)
-                  return true
-            })
-            .catch((err) => console.log(err))
-            .finally(()=>{
-              console.log("search complete")
-            })
-        }else{
-          return false
-        }
-            break
-      case("movie"):
-        url = `https://api.themoviedb.org/3/search/movie?${apiKey}&language=en-US&query=${searchItem}&page=1&include_adult=false`
-        
-        if(searchItem){
-          searchItem = encodeURI(searchItem)
-          await axios.get(url)
-              .then((response) => {
-                  console.log(response)
-                  return true
 
-            })
-            .catch((err) => console.log(err))
-            .finally(()=>{
-              console.log("search complete")
-            })
-        }else{
-          return false
-        }
-
-        break
-      case("tv"):
-        url = `https://api.themoviedb.org/3/search/tv?${apiKey}&language=en-US&page=1&query=${searchItem}&include_adult=false`
-        
-        if(searchItem){
-          searchItem = encodeURI(searchItem)
-          await axios.get(url)
-            .then((response) => {
-              console.log(response)
-              return true
-            })
-            .catch((err) => console.log(err))
-            .finally(()=>{
-              console.log("search complete")
-            })
-        }else{
-          return false
-        }
-
-        break
-      default:
-        url = `https://api.themoviedb.org/3/search/multi?${apiKey}&language=en-US&query=${searchItem}&page=1&include_adult=false`
-        
-        if(searchItem){
-          searchItem = encodeURI(searchItem)
-          await axios.get(url)
-              .then((response) => {
-                  console.log(response)
-                  return true
-            })
-            .catch((err) => console.log(err))
-            .finally(()=>{
-              console.log("search complete")
-            })
-        }else{
-          return false
-        }
-        break
+    if(type === "movie"){
+      url = `https://api.themoviedb.org/3/search/movie?${apiKey}&language=en-US&query=${searchItem}&page=1&include_adult=false`
+    }else if(type === "tv"){
+      url = `https://api.themoviedb.org/3/search/tv?${apiKey}&language=en-US&page=1&query=${searchItem}&include_adult=false`
+    }else{
+      url = `https://api.themoviedb.org/3/search/multi?${apiKey}&language=en-US&query=${searchItem}&page=1&include_adult=false`
     }
 
+    if(searchItem){
+      searchItem = encodeURI(searchItem)
+      await axios.get(url)
+        .then((response) => {
+            console.log(response)
+            setData(response.data)
+            })
+            .catch((err) => console.log(err))
+            .finally(()=>{
+              console.log("search complete")
+            })
+        }else{
+          console.log("Nothing in search bar. Try again.")
+          return undefined
+        }
   }
+
   const HeaderProps = {
-    search: runSearch
+    runSearch: runSearch,
+    setSearching: setSearching,
   }
 
   return (
@@ -134,6 +58,7 @@ const Home: NextPage = () => {
       </Head>
       <Header {...HeaderProps}/>
       <div className={styles.main}>
+        <MultiSearch data={data} searching={searching} />
 
       </div>
     </div>
