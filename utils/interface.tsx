@@ -23,3 +23,13 @@ export interface SearchData{
       total_pages: number;
       total_results: number;
   }
+export interface MovieData{
+  id:number;
+}
+export interface ShowData{
+  id:number;
+}
+export interface UserData{
+  movies: MovieData[];
+  shows: ShowData[];
+}

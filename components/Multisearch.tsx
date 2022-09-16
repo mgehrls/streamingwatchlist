@@ -1,21 +1,22 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import Result from './Result'
-import Searchbar from './Searchbar'
 //import {useAutoAnimate} from '@formkit/auto-animate/react'
-import type {SearchData, SearchResult} from '../utils/interface'
+import type {SearchData, SearchResult, UserData} from '../utils/interface'
 
   interface MultiSearchProps{
-    data:  SearchData | null;
-    searching: boolean
+    searchData:  SearchData | null;
+    searching: boolean;
+    setUser: Dispatch<SetStateAction<UserData | null>>;
+    user: UserData | null
 }
 
-const MultiSearch = ({data, searching}: MultiSearchProps) => {
+const MultiSearch = ({searchData, searching, setUser, user}: MultiSearchProps) => {
     let searchResults: JSX.Element[] | JSX.Element = []
-    if(data !== null){
-        console.log(data)
-        searchResults = data.results.map((result: SearchResult)=>{
+    if(searchData !== null){
+        console.log(searchData)
+        searchResults = searchData.results.map((result: SearchResult)=>{
             return(
-               <Result key={result.id} data={result}/>
+               <Result key={result.id} data={result} setUser={setUser} user={user}/>
             )
         }) 
 

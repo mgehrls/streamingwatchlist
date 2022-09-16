@@ -1,52 +1,37 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { useState, useEffect } from 'react'
+
 import Header from '../components/Header'
 import MultiSearch from '../components/Multisearch'
-import axios from 'axios'
-import { useState, useEffect } from 'react'
 import type { SearchData } from '../utils/interface'
-const apiKey = "api_key=4cc551bdbec360295f6123a443e43bb9"
+import type { UserData } from '../utils/interface'
+import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
-  const [data, setData] = useState<SearchData | null>(null)
+  const [searchData, setSearchData] = useState<SearchData | null>(null)
   const [searching, setSearching] = useState<boolean>(false)
+  const [user, setUser] = useState<UserData | null>({movies:[], shows:[]})
 
+  //here for testing purposes.
   useEffect(()=>{
-    console.log(data)
-  },[data])
-
-  const runSearch:(type:string, searchItem:string) => Promise<SearchData | undefined> = async function(type, searchItem){
-    let url = ""
-
-    if(type === "movie"){
-      url = `https://api.themoviedb.org/3/search/movie?${apiKey}&language=en-US&query=${searchItem}&page=1&include_adult=false`
-    }else if(type === "tv"){
-      url = `https://api.themoviedb.org/3/search/tv?${apiKey}&language=en-US&page=1&query=${searchItem}&include_adult=false`
-    }else{
-      url = `https://api.themoviedb.org/3/search/multi?${apiKey}&language=en-US&query=${searchItem}&page=1&include_adult=false`
-    }
-
-    if(searchItem){
-      searchItem = encodeURI(searchItem)
-      await axios.get(url)
-        .then((response) => {
-            console.log(response)
-            setData(response.data)
-            })
-            .catch((err) => console.log(err))
-            .finally(()=>{
-              console.log("search complete")
-            })
-        }else{
-          console.log("Nothing in search bar. Try again.")
-          return undefined
-        }
-  }
+    console.log("searchData:")
+    console.log(searchData)
+  },[searchData])
+  useEffect(()=>{
+    console.log("userdata:")
+    console.log(user)
+  },[user])
 
   const HeaderProps = {
-    runSearch: runSearch,
     setSearching: setSearching,
+    setSearchData: setSearchData
+  }
+  const SearchProps = {
+    searchData: searchData,
+    searching: searching,
+    setUser: setUser,
+    user: user
   }
 
   return (
@@ -58,7 +43,7 @@ const Home: NextPage = () => {
       </Head>
       <Header {...HeaderProps}/>
       <div className={styles.main}>
-        <MultiSearch data={data} searching={searching} />
+        <MultiSearch {...SearchProps} />
 
       </div>
     </div>
