@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This will be a watchlist for people to save their favorite shows and movies, and keep track of where they are streaming. It was originally a vanilla js tutorial I followed of Scrimba.com. No lines of code remain from that tutorial. This is with Next.js, Typescript, a different API to include tv shows, and actors, and will have a backend by the time I'm done.
+
+This is my first REAL typescript project, and my second Next.js project.
 
 ## Getting Started
 
