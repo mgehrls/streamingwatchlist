@@ -6,17 +6,17 @@ import type {SearchData, SearchResult, UserData} from '../utils/interface'
   interface MultiSearchProps{
     searchData:  SearchData | null;
     searching: boolean;
-    setUser: Dispatch<SetStateAction<UserData | null>>;
+    addMovie: (id: number) => void;
     user: UserData | null
 }
 
-const MultiSearch = ({searchData, searching, setUser, user}: MultiSearchProps) => {
+const MultiSearch = ({searchData, searching, addMovie, user}: MultiSearchProps) => {
     let searchResults: JSX.Element[] | JSX.Element = []
     if(searchData !== null){
         console.log(searchData)
         searchResults = searchData.results.map((result: SearchResult)=>{
             return(
-               <Result key={result.id} data={result} setUser={setUser} user={user}/>
+               <Result key={result.id} data={result} addMovie={addMovie} user={user}/>
             )
         }) 
 

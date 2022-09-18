@@ -23,6 +23,12 @@ const Home: NextPage = () => {
     console.log(user)
   },[user])
 
+  const addMovie = (id:number)=>{
+    if(user !== null){
+      setUser({movies:[...user.movies, {id:id}], shows:[...user.shows]})
+    }
+  }
+
   const HeaderProps = {
     setSearching: setSearching,
     setSearchData: setSearchData
@@ -30,7 +36,7 @@ const Home: NextPage = () => {
   const SearchProps = {
     searchData: searchData,
     searching: searching,
-    setUser: setUser,
+    addMovie: addMovie,
     user: user
   }
 

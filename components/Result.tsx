@@ -5,11 +5,11 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import styles from './Result.module.css'
 interface ResultProps{
     data: SearchResult;
-    setUser: Dispatch<SetStateAction<UserData | null>>;
+    addMovie: (id: number) => void;
     user: UserData | null;
 }
 
-const Result = ({data}: ResultProps) =>{
+const Result = ({data, addMovie, user}: ResultProps) =>{
     let description:string = ""
     let title:string = ""
     let posterPath:string = ""
@@ -37,7 +37,7 @@ const Result = ({data}: ResultProps) =>{
                 <p className={styles.description}>{description}</p>
             </div>
             <div className={styles.btnCon}>
-                <button>{"Add to Wishlist"}</button>
+                <button onClick={() => addMovie(data.id)} >{"Add to Wishlist"}</button>
                 <FontAwesomeIcon icon={faHeart} className={styles.favoriteIcon}/>
             </div>
             </>)
