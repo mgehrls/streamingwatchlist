@@ -3,7 +3,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type {SearchData} from "../utils/interface"
 import styles from './Header.module.css'
-const apiKey = "api_key=4cc551bdbec360295f6123a443e43bb9"
+const apiKey = process.env.KEY;
 interface HeaderProps{
     setSearchData: Dispatch<SetStateAction<SearchData | null>>;
     setDisplay: Dispatch<SetStateAction<string>>;
@@ -28,7 +28,6 @@ const Header = ({setSearchData, setDisplay}: HeaderProps) => {
         }
 
         if(searchItem){
-            console.log("run search ran. Here's what it searched: " + searchItem)
             searchItem = encodeURI(searchItem)
             fetch(url)
                 .then(res=> res.json())
