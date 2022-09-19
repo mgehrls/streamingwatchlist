@@ -5,18 +5,18 @@ import type {SearchData} from "../utils/interface"
 import styles from './Header.module.css'
 const apiKey = "api_key=4cc551bdbec360295f6123a443e43bb9"
 interface HeaderProps{
-    setSearching: Dispatch<SetStateAction<boolean>>;
     setSearchData: Dispatch<SetStateAction<SearchData | null>>;
+    setDisplay: Dispatch<SetStateAction<string>>;
 }
   
-const Header = ({setSearching, setSearchData}: HeaderProps) => {
+const Header = ({setSearchData, setDisplay}: HeaderProps) => {
 
     function search(){
         runSearch("multi", (document.getElementById("searchinput") as HTMLInputElement).value)
     }
 
     const runSearch:(type:string, searchItem:string) => Promise<SearchData | undefined> = async function(type, searchItem){
-        setSearching(true)
+        setDisplay("searching")
         let url = ""
 
         if(type === "movie"){
@@ -35,7 +35,7 @@ const Header = ({setSearching, setSearchData}: HeaderProps) => {
                 .then((data) => {
                     if(data !== undefined){
                         setSearchData(data)
-                        setSearching(false)
+                        setDisplay("search")
                     }
                 })
                 .catch((err) => console.log(err))
@@ -43,7 +43,7 @@ const Header = ({setSearching, setSearchData}: HeaderProps) => {
                     console.log("search complete, should have results")
                 })
             }else{
-                setSearching(false)
+                setDisplay("newUser")
                 console.error("Nothing in search bar. Try again.")
             return undefined
             }

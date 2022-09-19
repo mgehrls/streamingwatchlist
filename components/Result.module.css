@@ -14,10 +14,16 @@
     align-items: center;
     height: 350px;
 }
+.pictureConCon{
+    display:flex;
+    justify-content: center;
+}
 .pictureCon img{
     max-height: 350px;
+    width: 233px;
     border: 1px solid #374151;
     box-shadow: -2px 2px 2px rgba(55, 65, 81,.6);
+    align-self: center;
 }
 .pictureCon img::before{
     content:"";
@@ -98,7 +104,9 @@
 @media only screen and (min-width:800px) {
     .mediaCon{
         flex-direction: row;
-        gap:1rem;
+    }
+    .pictureCon{
+        margin-right: 1rem;
     }
     .infoCon{
         gap:15px;

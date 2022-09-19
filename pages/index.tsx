@@ -1,43 +1,89 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
-
 import Header from '../components/Header'
-import MultiSearch from '../components/Multisearch'
+import UserHome from '../components/UserHome'
+import Search from '../components/Search'
+import Searching from '../components/Searching'
 import type { SearchData } from '../utils/interface'
 import type { UserData } from '../utils/interface'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
   const [searchData, setSearchData] = useState<SearchData | null>(null)
-  const [searching, setSearching] = useState<boolean>(false)
-  const [user, setUser] = useState<UserData | null>({movies:[], shows:[]})
+  const [user, setUser] = useState<UserData>({movies:[], shows:[]})
+  const [display, setDisplay] = useState("home")
+  let heroDisplay:JSX.Element = <></>
 
-  //here for testing purposes.
   useEffect(()=>{
-    console.log("searchData:")
-    console.log(searchData)
-  },[searchData])
-  useEffect(()=>{
-    console.log("userdata:")
-    console.log(user)
-  },[user])
-
+    const stringFromStorage = localStorage.getItem("streamingWatchlist")
+    if(stringFromStorage !== null){
+      let userData:UserData = JSON.parse(stringFromStorage)
+      setUser(userData)
+    }else{
+      setDisplay("newUser")
+    }
+  },[])
+  const saveToStorage = (data:UserData) => {
+    localStorage.setItem("streamingWatchlist", JSON.stringify(data))
+  }
   const addMovie = (id:number)=>{
     if(user !== null){
-      setUser({movies:[...user.movies, {id:id}], shows:[...user.shows]})
+      const newUserData = {movies:[...user.movies, {id:id}], shows:[...user.shows]}
+      setUser(newUserData)
+      saveToStorage(newUserData)
     }
   }
-
+  const removeMovie = (id:number)=>{
+    if(user!==null){
+      const newMovies = user.movies.filter(movie => movie.id !== id)
+      const newUserData = {movies:[...newMovies], shows:[...user.shows]}
+      setUser(newUserData)
+      saveToStorage(newUserData)
+    }
+  }
+  const addShow = (id:number)=>{
+    if(user !== null){
+      const newUserData = {movies:[...user.movies], shows:[...user.shows, {id:id}]}
+      setUser(newUserData)
+      saveToStorage(newUserData)
+    }
+  }
+  const removeShow = (id:number)=>{
+    if(user!==null){
+      const newShows = user.shows.filter(show => show.id !== id)
+      const newUserData = {movies:[...user.movies], shows:[...newShows]}
+      setUser(newUserData)
+      saveToStorage(newUserData)
+    }
+  }
   const HeaderProps = {
-    setSearching: setSearching,
-    setSearchData: setSearchData
+    setSearchData: setSearchData,
+    setDisplay: setDisplay
   }
   const SearchProps = {
     searchData: searchData,
-    searching: searching,
     addMovie: addMovie,
-    user: user
+    removeMovie: removeMovie,
+    addShow: addShow,
+    removeShow:removeShow,
+    user: user,
+  }
+  const UserHomeProps = {
+    removeShow:removeShow,
+    removeMovie: removeMovie,
+    user: user,
+  }
+
+switch(display){
+  case('home'):
+  heroDisplay = <UserHome {...UserHomeProps} />
+    break
+  case("search"):
+    heroDisplay = <Search {...SearchProps}/>
+    break
+  case("searching"):
+    heroDisplay = <Searching />
   }
 
   return (
@@ -49,8 +95,7 @@ const Home: NextPage = () => {
       </Head>
       <Header {...HeaderProps}/>
       <div className={styles.main}>
-        <MultiSearch {...SearchProps} />
-
+        {heroDisplay}
       </div>
     </div>
   )

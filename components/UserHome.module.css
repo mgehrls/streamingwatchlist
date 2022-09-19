@@ -1,0 +1,19 @@
+.homeContainer{
+    width: 1300px;
+    background-color: pink;
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height:calc(100vh + -208px);
+}
+.listsContainer{
+    width:100%;
+    display:flex;
+    justify-content: space-evenly;
+}
+.list{
+    width:500px;
+    height:800px;
+    background-color: blue;
+}
