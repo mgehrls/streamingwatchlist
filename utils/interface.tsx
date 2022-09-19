@@ -25,9 +25,17 @@ export interface SearchData{
   }
 export interface MovieData{
   id:number;
+  title?: string;
+  description?:string;
+  posterPath?:string;
+  tier?:"s" | "a" | "b" | "c" | "g";
 }
 export interface ShowData{
   id:number;
+  title?: string;
+  description?:string;
+  posterPath?:string;
+  tier?:"s" | "a" | "b" | "c" | "g";
 }
 export interface UserData{
   movies: MovieData[];

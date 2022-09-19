@@ -5,9 +5,9 @@ import type {SearchData, SearchResult, UserData} from '../utils/interface'
 
   interface SearchProps{
     searchData:  SearchData | null;
-    addMovie: (id: number) => void;
+    addMovie: (id: number, title: string, description:string, posterPath:string) => void
     removeMovie: (id: number) => void;
-    addShow: (id: number) => void;
+    addShow: (id: number, title: string, description:string, posterPath:string) => void
     removeShow: (id: number) => void;
     user: UserData
 }

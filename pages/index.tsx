@@ -5,8 +5,7 @@ import Header from '../components/Header'
 import UserHome from '../components/UserHome'
 import Search from '../components/Search'
 import Searching from '../components/Searching'
-import type { SearchData } from '../utils/interface'
-import type { UserData } from '../utils/interface'
+import type { SearchData, UserData, ShowData, MovieData } from '../utils/interface'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -27,9 +26,9 @@ const Home: NextPage = () => {
   const saveToStorage = (data:UserData) => {
     localStorage.setItem("streamingWatchlist", JSON.stringify(data))
   }
-  const addMovie = (id:number)=>{
+  const addMovie = (id:number, title:string, description:string, posterPath:string)=>{
     if(user !== null){
-      const newUserData = {movies:[...user.movies, {id:id}], shows:[...user.shows]}
+      const newUserData = {movies:[...user.movies, {id:id, posterPath:posterPath, title:title, description:description}], shows:[...user.shows]}
       setUser(newUserData)
       saveToStorage(newUserData)
     }
@@ -42,9 +41,15 @@ const Home: NextPage = () => {
       saveToStorage(newUserData)
     }
   }
-  const addShow = (id:number)=>{
+  const addShow = (id:number, title:string, description:string, posterPath:string)=>{
     if(user !== null){
-      const newUserData = {movies:[...user.movies], shows:[...user.shows, {id:id}]}
+      const showToAdd = {
+        id: id,
+        title:title,
+        description:description,
+        posterPath:posterPath
+      }
+      const newUserData = {movies:[...user.movies], shows:[...user.shows, {...showToAdd}]}
       setUser(newUserData)
       saveToStorage(newUserData)
     }

@@ -1,13 +1,13 @@
-import React, { Dispatch, SetStateAction } from 'react'
-import type { SearchResult, UserData } from "../utils/interface"
+import React from 'react'
+import type { SearchResult, UserData, ShowData, MovieData } from "../utils/interface"
 import { faTriangleExclamation, faHeart } from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import styles from './Result.module.css'
 interface ResultProps{
     data: SearchResult;
-    addMovie: (id: number) => void;
+    addMovie: (id: number, title: string, description:string, posterPath:string) => void;
     removeMovie: (id: number) => void;
-    addShow: (id: number) => void;
+    addShow: (id: number, title: string, description:string, posterPath:string) => void;
     removeShow: (id: number) => void;
     user: UserData;
 }
@@ -22,8 +22,12 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
     //setting up variables based on media type so result page works out regardless of type.
     switch(data.media_type){
         case('movie'):
-            if(data.title !== undefined) title = data.title
-            if(data.poster_path !== undefined) posterPath = data.poster_path
+            if(data.title !== undefined){
+                title = data.title
+            }
+            if(data.poster_path !== undefined){
+                posterPath = data.poster_path
+            }
             if(user.movies.find(movie => movie.id === data.id)){
                 btnsection = 
                 <>
@@ -33,7 +37,7 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
             }else{
                 btnsection=
                 <>
-                <button onClick={() => addMovie(data.id)} >{"Add to Wishlist"}</button>
+                <button onClick={() => addMovie(data.id, title, description, posterPath)} >{"Add to Wishlist"}</button>
                 <FontAwesomeIcon icon={faHeart} className={styles.favoriteIcon}/>
                 </>
             }
@@ -71,7 +75,7 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
             }else{
                 btnsection=
                 <>
-                <button onClick={() => addShow(data.id)} >{"Add to Wishlist"}</button>
+                <button onClick={() => addShow(data.id, title, description, posterPath)} >{"Add to Wishlist"}</button>
                 <FontAwesomeIcon icon={faHeart} className={styles.favoriteIcon}/>
                 </>
             }
