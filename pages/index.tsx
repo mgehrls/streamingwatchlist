@@ -5,7 +5,7 @@ import Header from '../components/Header'
 import UserHome from '../components/UserHome'
 import Search from '../components/Search'
 import Searching from '../components/Searching'
-import type { SearchData, UserData, ShowData, MovieData } from '../utils/interface'
+import type { SearchData, UserData } from '../utils/interface'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -19,8 +19,6 @@ const Home: NextPage = () => {
     if(stringFromStorage !== null){
       let userData:UserData = JSON.parse(stringFromStorage)
       setUser(userData)
-    }else{
-      setDisplay("newUser")
     }
   },[])
   const saveToStorage = (data:UserData) => {
@@ -79,17 +77,16 @@ const Home: NextPage = () => {
     removeMovie: removeMovie,
     user: user,
   }
-
-switch(display){
-  case('home'):
-  heroDisplay = <UserHome {...UserHomeProps} />
-    break
-  case("search"):
-    heroDisplay = <Search {...SearchProps}/>
-    break
-  case("searching"):
-    heroDisplay = <Searching />
-  }
+  switch(display){
+    case('home'):
+    heroDisplay = <UserHome {...UserHomeProps} />
+      break
+    case("search"):
+      heroDisplay = <Search {...SearchProps}/>
+      break
+    case("searching"):
+      heroDisplay = <Searching />
+    }
 
   return (
     <div className={styles.container}>
@@ -100,7 +97,9 @@ switch(display){
       </Head>
       <Header {...HeaderProps}/>
       <div className={styles.main}>
+
         {heroDisplay}
+        
       </div>
     </div>
   )

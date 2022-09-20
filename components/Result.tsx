@@ -26,7 +26,7 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
                 title = data.title
             }
             if(data.poster_path !== undefined){
-                posterPath = data.poster_path
+                posterPath = "https://image.tmdb.org/t/p/w342/" + data.poster_path
             }
             if(user.movies.find(movie => movie.id === data.id)){
                 btnsection = 
@@ -65,7 +65,7 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
         case("tv"):
 
             if(data.name !== undefined) title = data.name
-            if(data.poster_path !== undefined) posterPath = data.poster_path
+            if(data.poster_path !== undefined) posterPath = "https://image.tmdb.org/t/p/w342/" + data.poster_path
             if(user.shows.find(show => show.id === data.id)){
                 btnsection = 
                 <>
@@ -129,8 +129,8 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
                     {data.poster_path !== null ?
                         <div className={styles.pictureConCon}>
                             <img 
-                                src={`https://image.tmdb.org/t/p/w342/${posterPath}`} 
-                                alt="movie poster"
+                                src={posterPath} 
+                                alt="poster"
                                 className={styles.realPoster}/>
                                 <div className={styles.missingPosterCon}>
                                     <img 

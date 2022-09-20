@@ -1,6 +1,5 @@
 .homeContainer{
     width: 1300px;
-    background-color: pink;
     display:flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -12,8 +11,25 @@
     display:flex;
     justify-content: space-evenly;
 }
+.listContainer{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:600px;
+    height:1200px;
+}
 .list{
-    width:500px;
-    height:800px;
-    background-color: blue;
+    width:80%;
+    height:80%;
+}
+.listItem{
+    height:10%;
+    border: 1px solid black;
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.posterImg{
+    height:100%;
 }
