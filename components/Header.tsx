@@ -49,33 +49,31 @@ const Header = ({setSearchData, setDisplay}: HeaderProps) => {
     }
 
     return (
-    <div className={styles.headercontainer}>
         <header className={styles.header}>
-            <a className={styles.titleContainer} href='/'>
-                <div>
+             <form 
+                onSubmit={(e)=>{
+                    e.preventDefault()
+                    search()
+                }} 
+                className={styles.searchbar}>
+                <input 
+                    id={"searchinput"}
+                    className={styles.searchinput}
+                    type="text" 
+                    placeholder={"Search for a Series or Movie!"}/>
+                <FontAwesomeIcon 
+                    icon={faMagnifyingGlass} 
+                    className={styles.searchicon} 
+                    onClick={() => { search() }}/>
+            </form>
+            <div className={styles.titleContainer}>
+                <a className={styles.titleLink} href='/'>
                     <h1 className={styles.pageTitle}>Streaming Watchlist</h1>
                     <p className={styles.pageSubtitle}>data and images courtesy of tmdb.org</p>
-                </div>
-            </a>
-    
+                </a>
+            </div>
+           
         </header>
-        <form 
-            onSubmit={(e)=>{
-                e.preventDefault()
-                search()
-            }} 
-            className={styles.searchbar}>
-            <input 
-                id={"searchinput"}
-                className={styles.searchinput}
-                type="text" 
-                placeholder={"test placeholder"}/>
-            <FontAwesomeIcon 
-                icon={faMagnifyingGlass} 
-                className={styles.searchicon} 
-                onClick={() => { search() }}/>
-        </form>
-    </div>
  )}
 
 export default Header

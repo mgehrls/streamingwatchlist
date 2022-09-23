@@ -40,18 +40,18 @@ const UserHome=({removeMovie, removeShow, user}:UserHomeProps)=> {
 
   return (
     <div className={styles.homeContainer}>
-        <h1>Welcome Back!</h1>
+        <h1 className={styles.homeTitle}>Welcome Back, {"Matt"}!</h1>
         <div className={styles.listsContainer}>
             <div className={styles.listContainer}>
-              <h2>Movies</h2>
+              <h2 >Series</h2>
               <div className={styles.list}>
-                {MovieDisplay}
+                  {SeriesDisplay}
               </div>
             </div>
             <div className={styles.listContainer}>
-              <h2>Series</h2>
+              <h2 className={styles.listTitle}>Movies</h2>
               <div className={styles.list}>
-                  {SeriesDisplay}
+                {MovieDisplay}
               </div>
             </div>
         </div>

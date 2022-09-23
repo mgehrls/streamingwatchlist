@@ -14,7 +14,8 @@ const SmallMediaDisplay = ({title, posterPath, removeMovie, removeShow, id}: Sma
     return (
         <div className={styles.listItem}>
            <img className={styles.posterImg} src={posterPath} alt={`${title} Poster`} />
-           <p className={styles.title}>{title}</p>
+           <input className={styles.date} type={"date"}/>
+           <div className={styles.rank}>Rank</div>
         </div>
 )}
 
