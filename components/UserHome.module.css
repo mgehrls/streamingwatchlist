@@ -5,7 +5,7 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: rgb(53, 53, 97);
+    background-color: #252525;
     color:white;
 }
 .homeTitle{
@@ -48,7 +48,7 @@
 }
 .posterImg{
     height:100%;
-    box-shadow: -2px 2px 2px rgba(247, 250, 255, 0.6);
+    box-shadow: var(--bs)
 }
 @media only screen and (min-width:1300px) {
     .homeContainer{

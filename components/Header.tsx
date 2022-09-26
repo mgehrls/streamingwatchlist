@@ -62,15 +62,16 @@ const Header = ({setSearchData, setDisplay}: HeaderProps) => {
                         search()
                     }} 
                     className={styles.searchbar}>
-                        <FontAwesomeIcon 
-                            icon={faMagnifyingGlass} 
-                            className={styles.searchicon} 
-                            onClick={() => { search() }}/>
+                    <FontAwesomeIcon 
+                        icon={faMagnifyingGlass} 
+                        className={styles.searchicon} 
+                        onClick={() => { search() }}/>
                     <input 
                         id={"searchinput"}
                         className={styles.searchinput}
                         type="text" 
                         placeholder={"Search StreamSave..."}/>
+                    <button className={styles.searchBtn} onClick={()=> search()}>Search</button>
                 </form>
             </div>
             <nav className={styles.nav}>

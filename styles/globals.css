@@ -9,6 +9,7 @@
 body{
   margin:0;
   padding:0;
+  background-color: var(--clr-light);
 }
 
 :root{
@@ -18,10 +19,9 @@ body{
   --fw-bold: 900;
 
   --clr-light: #D9D9D9;
-  --clr-dark: #303030;
+  --clr-dark: #252525;
   --clr-accent: #0079BD;
   --clr-light-accent: #8EA9EF;
-  /* #7851a9, #e6d124 */
   --fs-h1strong: 4rem;
   --fs-h1: 3rem;
   --fs-h2: 2.25rem;
