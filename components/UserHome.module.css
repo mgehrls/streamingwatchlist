@@ -46,7 +46,7 @@
 .rank{
     display:none;
 }
-.posterImg{
+.backdropImg{
     height:100%;
     box-shadow: var(--bs)
 }

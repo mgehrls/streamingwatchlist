@@ -24,9 +24,9 @@ const Home: NextPage = () => {
   const saveToStorage = (data:UserData) => {
     localStorage.setItem("streamingWatchlist", JSON.stringify(data))
   }
-  const addMovie = (id:number, title:string, description:string, posterPath:string)=>{
+  const addMovie = (id:number, title:string, description:string, backdropPath:string)=>{
     if(user !== null){
-      const newUserData = {movies:[...user.movies, {id:id, posterPath:posterPath, title:title, description:description}], shows:[...user.shows]}
+      const newUserData = {movies:[...user.movies, {id:id, backdropPath:backdropPath, title:title, description:description}], shows:[...user.shows]}
       setUser(newUserData)
       saveToStorage(newUserData)
     }
@@ -39,13 +39,13 @@ const Home: NextPage = () => {
       saveToStorage(newUserData)
     }
   }
-  const addShow = (id:number, title:string, description:string, posterPath:string)=>{
+  const addShow = (id:number, title:string, description:string, backdropPath:string)=>{
     if(user !== null){
       const showToAdd = {
         id: id,
         title:title,
         description:description,
-        posterPath:posterPath
+        backdropPath:backdropPath
       }
       const newUserData = {movies:[...user.movies], shows:[...user.shows, {...showToAdd}]}
       setUser(newUserData)

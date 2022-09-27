@@ -1,0 +1,127 @@
+.resultSection{
+    background-color: pink;
+    width:100vw;
+    }
+    .mediaCon{
+        display:flex;
+        justify-content: center;
+        align-items: center; 
+        flex-direction: column;
+        width: 100%;
+        padding:3.5rem 0;
+        border-bottom: 2px #374151 solid;
+        background-color: rgb(53, 53, 97);
+        background-color: transparent;
+    }
+    .pictureCon{
+        display:flex;
+        justify-content: right;
+        align-items: center;
+        height: 350px;
+    }
+    .pictureConCon{
+        display:flex;
+        justify-content: center;
+    }
+    .pictureCon img{
+        max-height: 350px;
+        width: 233px;
+        border: 1px solid #374151;
+        box-shadow: -2px 2px 2px rgba(55, 65, 81,.6);
+        align-self: center;
+    }
+    .pictureCon img::before{
+        content:"";
+        height:350px;
+        width:100%;
+    }
+    .realbackdrop{
+        position:absolute;
+        z-index: 999;
+    }
+    .missingbackdropCon{
+        position:relative;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .missingbackdrop{
+        position:relative;
+        opacity: .5;
+    }
+    .missingbackdropIcon{
+        position:absolute;
+        width:50px;
+    }
+    .missingbackdropText{
+        position:absolute;
+        color:white;
+    }
+    .infoCon{
+        position:relative;
+        height:350px;
+        width:30%;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        padding:20px;
+        background-color: #151515;
+        color:white;
+    }
+    .btnCon{
+        display:flex;
+        justify-content: left;
+        align-items: center;
+        height:10%;
+        gap:1rem;
+    }
+    .favoriteIcon{
+        max-height:20px;
+    }
+    .mediaTitle{ 
+        margin:1rem 0 0;
+        font-size: 25px;
+        font-weight: 500;
+    }
+    .rating{
+        position:absolute;
+        font-size: 18px;
+        top:0;
+        right:0;
+        margin:1rem;
+    }
+    .role{ 
+        margin:0;
+        font-size: 14px;
+        font-weight: 400; 
+    }
+    .description{
+        color:#6B7280;
+        font-size: 18px;
+        margin:0;
+    }
+    .mediaTitle,
+    .role,
+    .description{
+        text-align: center;
+    }
+    @media only screen and (min-width:800px) {
+        .mediaCon{
+            flex-direction: row;
+        }
+        .pictureCon{
+            margin-right: 1rem;
+        }
+        .infoCon{
+            gap:15px;
+        }
+        .rating{
+            text-align: right;
+        }
+        .mediaTitle,
+        .description,
+        .role{
+            text-align: left;
+        }
+    }

@@ -15,7 +15,7 @@ const UserHome=({removeMovie, removeShow, user}:UserHomeProps)=> {
   const smallMovieArray = user.movies.map(movie=>{
     const SmallMediaDisplayProps = {
       title: movie.title !== undefined ? movie.title : '',
-      posterPath: movie.posterPath !== undefined ? movie.posterPath : '',
+      backdropPath: movie.backdropPath !== undefined ? movie.backdropPath : '',
       id: movie.id !== undefined ? movie.id : 0,
       removeMovie: removeMovie,
     }
@@ -26,7 +26,7 @@ const UserHome=({removeMovie, removeShow, user}:UserHomeProps)=> {
   const smallSeriesArray = user.shows.map(series=>{
     const SmallMediaDisplayProps = {
       title: series.title !== undefined ? series.title : '',
-      posterPath: series.posterPath !== undefined ? series.posterPath : '',
+      backdropPath: series.backdropPath !== undefined ? series.backdropPath : '',
       id: series.id !== undefined ? series.id : 0,
       removeShow: removeShow
     }
@@ -43,7 +43,7 @@ const UserHome=({removeMovie, removeShow, user}:UserHomeProps)=> {
         <h1 className={styles.homeTitle}>Welcome Back, {"Matt"}!</h1>
         <div className={styles.listsContainer}>
             <div className={styles.listContainer}>
-              <h2 >Series</h2>
+              <h2>Series</h2>
               <div className={styles.list}>
                   {SeriesDisplay}
               </div>

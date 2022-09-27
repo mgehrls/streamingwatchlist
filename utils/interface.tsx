@@ -9,7 +9,7 @@ export interface SearchResult{
     original_title?:string;
     overview?: string;
     popularity?: number;
-    poster_path?:string;
+    backdrop_path?:string;
     profile_path?:string;
     realease_date?:string;
     title?:string;
@@ -27,14 +27,14 @@ export interface MovieData{
   id:number;
   title?: string;
   description?:string;
-  posterPath?:string;
+  backdropPath?:string;
   tier?:"s" | "a" | "b" | "c" | "g";
 }
 export interface ShowData{
   id:number;
   title?: string;
   description?:string;
-  posterPath?:string;
+  backdropPath?:string;
   tier?:"s" | "a" | "b" | "c" | "g";
 }
 export interface UserData{
