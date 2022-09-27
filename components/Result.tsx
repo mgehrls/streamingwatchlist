@@ -3,7 +3,8 @@ import type { SearchResult, UserData, ShowData, MovieData } from "../utils/inter
 import { faTriangleExclamation} from '@fortawesome/free-solid-svg-icons'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import styles from './Result.module.css'
-import { url } from 'inspector'
+import useHover from '../utils/useHover'
+
 interface ResultProps{
     data: SearchResult;
     addMovie: (id: number, title: string, description:string, backdropPath:string) => void;
@@ -19,6 +20,8 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
     let backdropPath:string = ""
     let infoSection: JSX.Element
     let btnsection: JSX.Element
+
+    const [hoverRef, isHovered] = useHover()
     
     //setting up variables based on media type so result page works out regardless of type.
     switch(data.media_type){
@@ -46,11 +49,16 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
             }
 
             infoSection = (
-            <>
-                <p className={styles.rating}>⭐{data.vote_average}</p>
-                {btnsection}
+            <div className={isHovered ? styles.infoConHovered : styles.infoCon}>
+                <div className={isHovered ? styles.infoDetailsHovered : styles.infoDetails}>
+                    <div className={styles.infoTop}>
+                        <p className={styles.rating}>⭐{data.vote_average}</p>
+                        {btnsection}
+                    </div>
+                <p className={styles.description}>{description}</p>
+                </div>
                 <h2 className={styles.mediaTitle}>{title}</h2>
-            </>)
+            </div>)
             break
         case("tv"):
 
@@ -73,15 +81,16 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
             }
 
             infoSection = (
-                <div className={styles.infoCon}>
-                <div>
-                    <h2 className={styles.mediaTitle}>{title}</h2>
-                    <p className={styles.rating}>⭐{data.vote_average}</p>
+                <div className={isHovered ? styles.infoConHovered : styles.infoCon}>
+                <div className={isHovered ? styles.infoDetailsHovered : styles.infoDetails}>
+                    <div className={styles.infoTop}>
+                        <p className={styles.rating}>⭐{data.vote_average}</p>
+                        {btnsection}
+                    </div>
+                    <p className={styles.description}>{description}</p>
                 </div>
-                <div className={styles.btnCon}>
-                    {btnsection}
-                </div>
-                </div>
+                <h2 className={styles.mediaTitle}>{title}</h2>
+            </div>
                 )
             break
         default:
@@ -104,7 +113,7 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
         return <></>
     }else{
         return(
-            <div className={styles.mediaContainer} style={{background: `url(${backdropPath}) no-repeat`, }}>
+            <div ref={hoverRef} className={styles.mediaContainer} style={{backgroundColor:"var(--clr-accent)", background:`url(${backdropPath}) no-repeat`, }}>
                 {infoSection}
             </div>
         )

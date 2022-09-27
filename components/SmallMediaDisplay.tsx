@@ -1,4 +1,5 @@
 import styles from './UserHome.module.css'
+import useHover from '../utils/useHover'
 
 interface SmallDisplayProps{
     removeMovie?: (id: number) => void;
@@ -9,11 +10,11 @@ interface SmallDisplayProps{
 }
 
 const SmallMediaDisplay = ({title, backdropPath, removeMovie, removeShow, id}: SmallDisplayProps)=>{
+    const [hoverRef, isHovered] = useHover()
+
     return (
-        <div className={styles.listItem}>
+        <div ref={hoverRef} className={styles.listItem}>
            <img className={styles.backdropImg} src={backdropPath} alt={`${title} backdrop`} />
-           <input className={styles.date} type={"date"}/>
-           <div className={styles.rank}>Rank</div>
         </div>
 )}
 
