@@ -5,6 +5,7 @@ import Header from '../components/Header'
 import UserHome from '../components/UserHome'
 import Search from '../components/Search'
 import Searching from '../components/Searching'
+import Footer from '../components/Footer'
 import type { SearchData, UserData } from '../utils/interface'
 import styles from '../styles/Home.module.css'
 
@@ -101,6 +102,7 @@ const Home: NextPage = () => {
         {heroDisplay}
         
       </div>
+      <Footer/>
     </div>
   )
 }
