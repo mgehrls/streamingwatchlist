@@ -1,0 +1,29 @@
+.homeContainer{
+    width:100vw;
+    display:flex;
+    justify-content: space-between;
+}
+.main{
+    display:flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.trendingSeriesContainer,
+.trendingMoviesContainer{
+    width:100%;
+    max-width: 80vw;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+.sectionTitle{
+    color:var(--clr-dark);
+    text-align: center;
+}
+.sidebarContainer{
+    background-color: var(--clr-light-accent);
+    color: var(--clr-dark);
+    max-width:400px;
+}

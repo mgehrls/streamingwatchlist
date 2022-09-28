@@ -31,8 +31,8 @@ body{
   --bs: 0.25em 0.25em 0.75em rgba(0,0,0,.25),
         0.125em 0.125em 0.25em rgba(0,0,0,.15),
         0.0625em 0.0625em 0.1em rgba(0,0,0,.10);
-  --ts: 2px 2px 3px black, 
-        2px -2px 3px black, 
-        -2px -2px 3px black, 
-        -2px 2px 3px black;
+  --ts: 2px 2px 2px black, 
+        2px -2px 2px black, 
+        -2px -2px 2px black, 
+        -2px 2px 2px black;
 }

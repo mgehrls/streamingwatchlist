@@ -44,8 +44,8 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
                     <FontAwesomeIcon icon={faPlus} width={20}/>
                 </div>
 
-            if(data.overview !== undefined && data.overview.length > 130){
-                description = data.overview.slice(0, 130) + "..."
+            if(data.overview !== undefined && data.overview.length > 80){
+                description = data.overview.slice(0, 80) + "..."
                 } else if(data.overview !== undefined){
                     description = data.overview
                     }else{
@@ -71,20 +71,20 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
                 <FontAwesomeIcon icon={faPlus} width={20}/>
             </div>
 
-            if(data.overview !== undefined && data.overview.length > 150){
-                description = data.overview.slice(0, 150) + "..."
+            if(data.overview !== undefined && data.overview.length > 80){
+                description = data.overview.slice(0, 80) + "..."
                 }else if(data.overview !== undefined){
                     description = data.overview
                     }else{
-                        description = "Movie Description Not Found"
+                        description = "Series Description Not Found"
             }
             break
         default:
             if(data.name !== undefined) title = data.name
             if(data.profile_path !== undefined) backdropPath = data.profile_path
             
-            if(data.overview !== undefined && data.overview.length > 150){
-                description = data.overview.slice(0, 150) + "..."
+            if(data.overview !== undefined && data.overview.length > 80){
+                description = data.overview.slice(0, 80) + "..."
                 }else if(data.overview !== undefined){
                     description = data.overview
                     }else{
