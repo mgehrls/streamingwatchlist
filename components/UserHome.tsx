@@ -5,9 +5,9 @@ import styles from './UserHome.module.css'
 import Result from './Result';
 const apiKey = process.env.KEY;
 interface UserHomeProps{
-  addMovie: (id: number, title: string, description:string, backdropPath:string) => void
+  addMovie: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void
   removeMovie: (id: number) => void;
-  addShow: (id: number, title: string, description:string, backdropPath:string) => void
+  addShow: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void
   removeShow: (id: number) => void;
   user: UserData
 }
@@ -47,6 +47,7 @@ const UserHome=({removeMovie, removeShow, user, addMovie, addShow}:UserHomeProps
     const SmallMediaDisplayProps = {
       title: movie.title !== undefined ? movie.title : '',
       backdropPath: movie.backdropPath !== undefined ? movie.backdropPath : '',
+      posterPath: movie.posterPath !== undefined ? movie.posterPath : '',
       id: movie.id !== undefined ? movie.id : 0,
       key: movie.id !== undefined ? movie.id : 0,
       removeMovie: removeMovie,
@@ -59,6 +60,7 @@ const UserHome=({removeMovie, removeShow, user, addMovie, addShow}:UserHomeProps
     const SmallMediaDisplayProps = {
       title: series.title !== undefined ? series.title : '',
       backdropPath: series.backdropPath !== undefined ? series.backdropPath : '',
+      posterPath: series.posterPath !== undefined ? series.posterPath : '',
       id: series.id !== undefined ? series.id : 0,
       key: series.id !== undefined ? series.id : 0,
       removeShow: removeShow
@@ -76,9 +78,9 @@ const UserHome=({removeMovie, removeShow, user, addMovie, addShow}:UserHomeProps
     user: user
   }
   interface ResultPropTypes{
-    addMovie: (id: number, title: string, description:string, backdropPath:string) => void
+    addMovie: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void
     removeMovie: (id: number) => void;
-    addShow: (id: number, title: string, description:string, backdropPath:string) => void
+    addShow: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void
     removeShow: (id: number) => void;
     user: UserData
   }
@@ -111,6 +113,7 @@ const trendingMoviesDisplay = trendingMoviesSearch(ResultProps)
 
   return (
     <div className={styles.homeContainer}>
+
       <main className={styles.main}>
         <h2 className={styles.sectionTitle}>Trending Series</h2>
         <div className={styles.trendingSeriesContainer}>
@@ -120,13 +123,18 @@ const trendingMoviesDisplay = trendingMoviesSearch(ResultProps)
         <div className={styles.trendingMoviesContainer}>
           {trendingMoviesDisplay}
         </div>
-
       </main>
+
       <aside className={styles.sidebarContainer}>
         <h3>Your List</h3>
-        {smallSeriesArray}
-        {smallMovieArray}
+        <div className={styles.sidebarSeriesContainer}>
+          {smallSeriesArray}
+        </div>
+        <div className={styles.sidebarSeriesContainer}>
+          {smallMovieArray}
+        </div>
       </aside>
+
     </div>
   )
 }

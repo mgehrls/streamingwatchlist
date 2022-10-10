@@ -6,9 +6,9 @@ import styles from './Result.module.css'
 
   interface SearchProps{
     searchData:  SearchData | null;
-    addMovie: (id: number, title: string, description:string, backdropPath:string) => void
+    addMovie: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void
     removeMovie: (id: number) => void;
-    addShow: (id: number, title: string, description:string, backdropPath:string) => void
+    addShow: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void
     removeShow: (id: number) => void;
     user: UserData
 }

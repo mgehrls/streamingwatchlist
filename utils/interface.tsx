@@ -28,6 +28,7 @@ export interface MovieData{
   title?: string;
   description?:string;
   backdropPath?:string;
+  posterPath?:string;
   tier?:"s" | "a" | "b" | "c" | "g";
 }
 export interface ShowData{
@@ -35,6 +36,7 @@ export interface ShowData{
   title?: string;
   description?:string;
   backdropPath?:string;
+  posterPath?:string;
   tier?:"s" | "a" | "b" | "c" | "g";
 }
 export interface UserData{

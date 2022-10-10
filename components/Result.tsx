@@ -7,9 +7,9 @@ import useHover from '../utils/useHover'
 
 interface ResultProps{
     data: SearchResult;
-    addMovie: (id: number, title: string, description:string, backdropPath:string) => void;
+    addMovie: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void;
     removeMovie: (id: number) => void;
-    addShow: (id: number, title: string, description:string, backdropPath:string) => void;
+    addShow: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void;
     removeShow: (id: number) => void;
     user: UserData;
 }
@@ -18,6 +18,7 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
     let description:string = ""
     let title:string = ""
     let backdropPath:string = ""
+    let posterPath:string = ""
     let infoSection: JSX.Element
     let btnsection: JSX.Element = <></>
 
@@ -28,6 +29,7 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
         case('movie'):
             data.title !== undefined ? title = data.title : undefined
             data.backdrop_path !== undefined ? backdropPath =  "https://image.tmdb.org/t/p/w342/" + data.backdrop_path : undefined
+            data.poster_path !== undefined ? posterPath =  "https://image.tmdb.org/t/p/w342/" + data.poster_path : undefined
             btnsection = user.movies.find(movie => movie.id === data.id) ?
                 <div
                     className={styles.removeBtn}
@@ -40,7 +42,7 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
                 <div
                     className={styles.addBtn}
                     onClick={() => 
-                        addMovie(data.id, title, description, backdropPath)} >
+                        addMovie(data.id, title, description, backdropPath, posterPath)} >
                     <FontAwesomeIcon icon={faPlus} width={20}/>
                 </div>
 
@@ -54,8 +56,10 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
             break
         case("tv"):
             data.name !== undefined ? title = data.name : undefined
-            data.backdrop_path !== undefined ? backdropPath =  "https://image.tmdb.org/t/p/w342/" + data.backdrop_path : undefined
+            data.backdrop_path !== undefined ? backdropPath =  "https://image.tmdb.org/t/p/w342" + data.backdrop_path : undefined
+            data.poster_path !== undefined ? posterPath =  "https://image.tmdb.org/t/p/w342" + data.poster_path : undefined
             btnsection = user.shows.find(show => show.id === data.id) ?
+       
             <div
                 className={styles.removeBtn}
                 onClick={() => 
@@ -66,8 +70,10 @@ const Result = ({data, addMovie, user, removeMovie, addShow, removeShow}: Result
             :
             <div
                 className={styles.addBtn}
-                onClick={() => 
-                    addShow(data.id, title, description, backdropPath)} >
+                onClick={() => {
+                    console.log(posterPath)
+                    addShow(data.id, title, description, backdropPath, posterPath)
+                }} >
                 <FontAwesomeIcon icon={faPlus} width={20}/>
             </div>
 
