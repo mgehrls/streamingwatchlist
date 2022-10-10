@@ -1,6 +1,7 @@
 import styles from './UserHome.module.css'
 import useHover from '../utils/useHover'
 import Image from "next/image"
+import React, { useState } from 'react';
 
 interface SmallDisplayProps{
     removeMovie?: (id: number) => void;
@@ -13,7 +14,11 @@ interface SmallDisplayProps{
 
 const SmallMediaDisplay = ({title, backdropPath, posterPath, removeMovie, removeShow, id}: SmallDisplayProps)=>{
     const [hoverRef, isHovered] = useHover()
+    const [hide, setHide] = useState(true)
     let removeMedia:(id:number)=> void;
+    let placeholderDate
+    let dateDisplay
+    
 
     if(removeMovie !== undefined){
         removeMedia = removeMovie
@@ -22,6 +27,16 @@ const SmallMediaDisplay = ({title, backdropPath, posterPath, removeMovie, remove
     }else{
         throw Error("Something went wrong. smallMediaDisplay type unclear")
     }
+
+    if(placeholderDate){
+        dateDisplay = <input className={styles.listItemLastSeen} value={placeholderDate} type={"date"}/>
+    }else if(hide){
+        dateDisplay = <p className={styles.listItemLastSeenFacade} onClick={() => setHide(!hide)}>last watched?</p>
+    }else{
+        dateDisplay = <input className={styles.listItemLastSeen} value={placeholderDate} autoFocus type={"date"}/>
+    }
+
+    
 
     if(posterPath !== undefined){
         return (
@@ -36,13 +51,12 @@ const SmallMediaDisplay = ({title, backdropPath, posterPath, removeMovie, remove
                     <div className={styles.listItemInfoContainer}>
                         <p className={styles.listItemRank}>{"-"}</p>
                         <h3 className={styles.listItemTitle}>{title}</h3>
-                        <p className={styles.listItemLastSeen}>last seen</p>
+                        <div className={styles.listItemLastSeenContainer}>
+                            {dateDisplay}
+                        </div>
                         <p className={styles.listItemTags}>tags</p>
+                        <p onClick={()=> removeMedia(id)}>remove</p>
                     </div>
-                </div>
-                <div className={styles.listItemOptionsContainer}>
-                    <p>edit</p>
-                    <p onClick={()=> removeMedia(id)}>remove</p>
                 </div>
             </div>
     )}else{

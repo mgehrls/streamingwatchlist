@@ -107,35 +107,41 @@ function trendingMoviesSearch(ResultProps: ResultPropTypes){
       })}
     return trendingMoviesDisplay
     }
+
+const yourList = ( 
+  <aside className={styles.sidebarContainer}>
+  <h3>Your List</h3>
+  <div className={styles.sidebarSeriesContainer}>
+    {smallSeriesArray}
+  </div>
+  <div className={styles.sidebarSeriesContainer}>
+    {smallMovieArray}
+  </div>
+</aside>
+
+)
+
+
 const trendingMoviesDisplay = trendingMoviesSearch(ResultProps)
-
+    return (
+      <div className={styles.homeContainer}>
   
+        <main className={styles.main}>
+          <h2 className={styles.sectionTitle}>Trending Series</h2>
+          <div className={styles.trendingSeriesContainer}>
+            {trendingSeriesDisplay}
+          </div>
+          <h2 className={styles.sectionTitle}>Trending Movies</h2>
+          <div className={styles.trendingMoviesContainer}>
+            {trendingMoviesDisplay}
+          </div>
+        </main>
+  
+      {smallSeriesArray.length || smallMovieArray.length ? yourList : ""}
+  
+      </div>
+    )
 
-  return (
-    <div className={styles.homeContainer}>
 
-      <main className={styles.main}>
-        <h2 className={styles.sectionTitle}>Trending Series</h2>
-        <div className={styles.trendingSeriesContainer}>
-          {trendingSeriesDisplay}
-        </div>
-        <h2 className={styles.sectionTitle}>Trending Movies</h2>
-        <div className={styles.trendingMoviesContainer}>
-          {trendingMoviesDisplay}
-        </div>
-      </main>
-
-      <aside className={styles.sidebarContainer}>
-        <h3>Your List</h3>
-        <div className={styles.sidebarSeriesContainer}>
-          {smallSeriesArray}
-        </div>
-        <div className={styles.sidebarSeriesContainer}>
-          {smallMovieArray}
-        </div>
-      </aside>
-
-    </div>
-  )
 }
 export default UserHome
