@@ -37,14 +37,11 @@ const Header = ({setSearchData, setDisplay}: HeaderProps) => {
                         setDisplay("search")
                     }
                 })
-                .catch((err) => console.log(err))
-                .finally(()=>{
-                    console.log("search complete, should have results")
-                })
+                .catch((err) => {throw new Error(err)})
             }else{
-                setDisplay("newUser")
-                console.error("Nothing in search bar. Try again.")
-            return undefined
+                setDisplay("home")
+                console.error("Nothing in search bar. Search for something.")
+                return undefined
             }
     }
 

@@ -34,28 +34,22 @@
     align-items: center;
 }
 .listItemContainer{
-    padding:10px 5px 10px 5px;
+    padding:10px;
     display:flex;
-    flex-direction: column;
     position:relative;
     width:100%;
     background-color: rgba(37, 37, 37, .5);
     border-bottom: 1px solid white;
-}
-.listItemDisplay{
-    display:flex;
-    width:100%;
     min-width: 310px;
-    opacity: 1;
-    transition:opacity 500ms;
 }
 .listItemPoster{
     width:100px;
 }
-.listItemInfoContainer{
+.listItemDetails{
     display:flex;
     flex-direction:column;
-    justify-content: space-between;
+    justify-content: center;
+    gap:1rem;
     padding:5px;
     width:100%;
 }
@@ -93,8 +87,10 @@
 }
 .listItemRemove{
     cursor:pointer;
-    align-self: flex-end;
     color:red;
+    position:absolute;
+    bottom:5px;
+    right:5px;
 }
 .listItemOptionsContainer{
     display:flex;

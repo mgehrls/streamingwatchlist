@@ -38,7 +38,7 @@ const SmallMediaDisplay = ({title, backdropPath, posterPath, removeMovie, remove
     }else if(hide){
         dateDisplay = <p className={styles.listItemLastSeenFacade} onClick={() => setHide(!hide)}>last watched?</p>
     }else{
-        dateDisplay = <input onChange={(e) => updateMedia(id, e.target.value)} value={lastSeen} className={styles.listItemLastSeen} type={"date"}/>
+        dateDisplay = <input onChange={(e) => updateMedia(id, e.target.value)} value={lastSeen} autoFocus className={styles.listItemLastSeen} type={"date"}/>
     }
 
     
@@ -46,21 +46,18 @@ const SmallMediaDisplay = ({title, backdropPath, posterPath, removeMovie, remove
     if(posterPath !== undefined){
         return (
             <div ref={hoverRef} className={styles.listItemContainer}>
-                <div className={styles.listItemDisplay}>
-                    <Image
-                        className={styles.listItemPoster}
-                        src={posterPath}
-                        alt="poster"
-                        width={100}
-                        height={150}/>
-                    <div className={styles.listItemInfoContainer}>
-                        <p className={styles.listItemRank}>{"-"}</p>
-                        <h3 className={styles.listItemTitle}>{title}</h3>
-                        <div className={styles.listItemLastSeenContainer}>
-                            {dateDisplay}
-                        </div>
-                        <p className={styles.listItemRemove} onClick={()=> removeMedia(id)}>X</p>
+                <Image
+                    className={styles.listItemPoster}
+                    src={posterPath}
+                    alt="poster"
+                    width={100}
+                    height={150}/>
+                <div className={styles.listItemDetails}>
+                    <h3 className={styles.listItemTitle}>{title}</h3>
+                    <div className={styles.listItemLastSeenContainer}>
+                        {dateDisplay}
                     </div>
+                    <p className={styles.listItemRemove} onClick={()=> removeMedia(id)}>remove</p>
                 </div>
             </div>
     )}else{
