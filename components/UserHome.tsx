@@ -5,16 +5,18 @@ import styles from './UserHome.module.css'
 import Result from './Result';
 const apiKey = process.env.KEY;
 interface UserHomeProps{
-  addMovie: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void
+  addMovie: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void;
   removeMovie: (id: number) => void;
-  addShow: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void
+  addShow: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void;
   removeShow: (id: number) => void;
-  user: UserData
+  user: UserData;
+  updateMovieDate: (id:number, lastSeen: Date) => void;
+  updateShowDate: (id:number, lastSeen: Date) => void;
 }
 
 
 
-const UserHome=({removeMovie, removeShow, user, addMovie, addShow}:UserHomeProps)=> {
+const UserHome=({removeMovie, removeShow, user, addMovie, addShow, updateMovieDate, updateShowDate}:UserHomeProps)=> {
   const [seriesTrendData, setSeriesTrendData] = React.useState<SearchData | null>(null)
   const [moviesTrendData, setMoviesTrendData] = React.useState<SearchData | null>(null)
 
@@ -51,6 +53,7 @@ const UserHome=({removeMovie, removeShow, user, addMovie, addShow}:UserHomeProps
       id: movie.id !== undefined ? movie.id : 0,
       key: movie.id !== undefined ? movie.id : 0,
       removeMovie: removeMovie,
+      updateMovieDate: updateMovieDate
     }
     return(
       <SmallMediaDisplay {...SmallMediaDisplayProps}/>
@@ -63,7 +66,8 @@ const UserHome=({removeMovie, removeShow, user, addMovie, addShow}:UserHomeProps
       posterPath: series.posterPath !== undefined ? series.posterPath : '',
       id: series.id !== undefined ? series.id : 0,
       key: series.id !== undefined ? series.id : 0,
-      removeShow: removeShow
+      removeShow: removeShow,
+      updateShowDate: updateShowDate
     }
     return(
       <SmallMediaDisplay {...SmallMediaDisplayProps}/>
@@ -90,7 +94,7 @@ function trendingSeriesSearch(ResultProps: ResultPropTypes){
     if(seriesTrendData !== null){
       trendingSeriesDisplay = seriesTrendData.results.map((result:SearchResult)=>{
       return(
-        <Result data={result} {...ResultProps} />
+        <Result key={result.id} data={result} {...ResultProps} />
       )
       })}
     return trendingSeriesDisplay

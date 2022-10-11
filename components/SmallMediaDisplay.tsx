@@ -5,25 +5,30 @@ import React, { useState } from 'react';
 
 interface SmallDisplayProps{
     removeMovie?: (id: number) => void;
+    updateMovieDate?: (id:number, lastSeen: Date) => void;
     removeShow?: (id: number) => void;
+    updateShowDate?: (id:number, lastSeen: Date) => void;
     title:string;
     backdropPath?:string;
     posterPath?:string;
     id:number;
 }
 
-const SmallMediaDisplay = ({title, backdropPath, posterPath, removeMovie, removeShow, id}: SmallDisplayProps)=>{
+const SmallMediaDisplay = ({title, backdropPath, posterPath, removeMovie, removeShow, id, updateMovieDate, updateShowDate}: SmallDisplayProps)=>{
     const [hoverRef, isHovered] = useHover()
     const [hide, setHide] = useState(true)
     let removeMedia:(id:number)=> void;
+    let updateMedia:(id:number, lastSeen:Date)=> void;
     let placeholderDate
     let dateDisplay
     
 
-    if(removeMovie !== undefined){
+    if(removeMovie !== undefined && updateMovieDate !== undefined){
         removeMedia = removeMovie
-    }else if(removeShow !== undefined){
+        updateMedia = updateMovieDate
+    }else if(removeShow !== undefined && updateShowDate !== undefined){
         removeMedia = removeShow
+        updateMedia = updateShowDate
     }else{
         throw Error("Something went wrong. smallMediaDisplay type unclear")
     }
@@ -33,7 +38,7 @@ const SmallMediaDisplay = ({title, backdropPath, posterPath, removeMovie, remove
     }else if(hide){
         dateDisplay = <p className={styles.listItemLastSeenFacade} onClick={() => setHide(!hide)}>last watched?</p>
     }else{
-        dateDisplay = <input className={styles.listItemLastSeen} value={placeholderDate} autoFocus type={"date"}/>
+        dateDisplay = <input onChange={(e) => updateMedia(id, new Date(e.target.value))} className={styles.listItemLastSeen} value={placeholderDate} autoFocus type={"date"}/>
     }
 
     

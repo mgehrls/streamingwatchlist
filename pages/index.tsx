@@ -106,7 +106,9 @@ const Home: NextPage = () => {
     removeMovie: removeMovie,
     user: user,
     addMovie: addMovie,
-    addShow: addShow
+    addShow: addShow,
+    updateMovieDate: updateMovieDate,
+    updateShowDate: updateShowDate
   }
   switch(display){
     case('home'):
