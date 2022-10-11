@@ -10,8 +10,8 @@ interface UserHomeProps{
   addShow: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void;
   removeShow: (id: number) => void;
   user: UserData;
-  updateMovieDate: (id:number, lastSeen: Date) => void;
-  updateShowDate: (id:number, lastSeen: Date) => void;
+  updateMovieDate: (id:number, lastSeen: string) => void;
+  updateShowDate: (id:number, lastSeen: string) => void;
 }
 
 
@@ -52,6 +52,7 @@ const UserHome=({removeMovie, removeShow, user, addMovie, addShow, updateMovieDa
       posterPath: movie.posterPath !== undefined ? movie.posterPath : '',
       id: movie.id !== undefined ? movie.id : 0,
       key: movie.id !== undefined ? movie.id : 0,
+      lastSeen: movie.lastSeen !== undefined ? movie.lastSeen : undefined,
       removeMovie: removeMovie,
       updateMovieDate: updateMovieDate
     }
@@ -66,6 +67,7 @@ const UserHome=({removeMovie, removeShow, user, addMovie, addShow, updateMovieDa
       posterPath: series.posterPath !== undefined ? series.posterPath : '',
       id: series.id !== undefined ? series.id : 0,
       key: series.id !== undefined ? series.id : 0,
+      lastSeen: series.lastSeen !== undefined ? series.lastSeen : undefined,
       removeShow: removeShow,
       updateShowDate: updateShowDate
     }

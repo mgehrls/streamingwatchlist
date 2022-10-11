@@ -5,21 +5,21 @@ import React, { useState } from 'react';
 
 interface SmallDisplayProps{
     removeMovie?: (id: number) => void;
-    updateMovieDate?: (id:number, lastSeen: Date) => void;
+    updateMovieDate?: (id:number, lastSeen: string) => void;
     removeShow?: (id: number) => void;
-    updateShowDate?: (id:number, lastSeen: Date) => void;
+    updateShowDate?: (id:number, lastSeen: string) => void;
     title:string;
     backdropPath?:string;
     posterPath?:string;
     id:number;
+    lastSeen?: string | undefined;
 }
 
-const SmallMediaDisplay = ({title, backdropPath, posterPath, removeMovie, removeShow, id, updateMovieDate, updateShowDate}: SmallDisplayProps)=>{
+const SmallMediaDisplay = ({title, backdropPath, posterPath, removeMovie, removeShow, id, updateMovieDate, updateShowDate, lastSeen}: SmallDisplayProps)=>{
     const [hoverRef, isHovered] = useHover()
     const [hide, setHide] = useState(true)
     let removeMedia:(id:number)=> void;
-    let updateMedia:(id:number, lastSeen:Date)=> void;
-    let placeholderDate
+    let updateMedia:(id:number, lastSeen:string)=> void;
     let dateDisplay
     
 
@@ -33,12 +33,12 @@ const SmallMediaDisplay = ({title, backdropPath, posterPath, removeMovie, remove
         throw Error("Something went wrong. smallMediaDisplay type unclear")
     }
 
-    if(placeholderDate){
-        dateDisplay = <input className={styles.listItemLastSeen} value={placeholderDate} type={"date"}/>
+    if(lastSeen !== undefined){
+        dateDisplay = <input onChange={(e) => updateMedia(id, e.target.value)} className={styles.listItemLastSeen} value={lastSeen} type={"date"}/>
     }else if(hide){
         dateDisplay = <p className={styles.listItemLastSeenFacade} onClick={() => setHide(!hide)}>last watched?</p>
     }else{
-        dateDisplay = <input onChange={(e) => updateMedia(id, new Date(e.target.value))} className={styles.listItemLastSeen} value={placeholderDate} autoFocus type={"date"}/>
+        dateDisplay = <input onChange={(e) => updateMedia(id, e.target.value)} value={lastSeen} className={styles.listItemLastSeen} type={"date"}/>
     }
 
     

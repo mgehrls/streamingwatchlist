@@ -33,7 +33,7 @@ const Home: NextPage = () => {
       saveToStorage(newUserData)
     }
   }
-  const updateMovieDate =(id:number, lastSeen:Date)=>{
+  const updateMovieDate =(id:number, lastSeen:string)=>{
     if(user !== null){
       const updatedMovie = user.movies.find(movie => movie.id === id)
       if(updatedMovie !== undefined){
@@ -42,6 +42,7 @@ const Home: NextPage = () => {
           const newMovies = user.movies.filter(movie => movie.id !== id)
           const newUserData = {movies:[...newMovies, updatedMovie], shows:[...user.shows]}
           setUser(newUserData)
+          saveToStorage(newUserData)
         }
       }
     }
@@ -68,7 +69,7 @@ const Home: NextPage = () => {
       saveToStorage(newUserData)
     }
   }
-  const updateShowDate =(id:number, lastSeen:Date)=>{
+  const updateShowDate =(id:number, lastSeen:string)=>{
     if(user !== null){
       const updatedShow = user.shows.find(show => show.id === id)
       if(updatedShow !== undefined){
@@ -77,6 +78,7 @@ const Home: NextPage = () => {
           const newShows = user.shows.filter(show => show.id !== id)
           const newUserData = {movies:[...user.movies], shows:[...newShows, updatedShow]}
           setUser(newUserData)
+          saveToStorage(newUserData)
         }
       }
     }
