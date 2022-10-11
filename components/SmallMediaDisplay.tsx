@@ -54,8 +54,7 @@ const SmallMediaDisplay = ({title, backdropPath, posterPath, removeMovie, remove
                         <div className={styles.listItemLastSeenContainer}>
                             {dateDisplay}
                         </div>
-                        <p className={styles.listItemTags}>tags</p>
-                        <p onClick={()=> removeMedia(id)}>remove</p>
+                        <p className={styles.listItemRemove} onClick={()=> removeMedia(id)}>X</p>
                     </div>
                 </div>
             </div>

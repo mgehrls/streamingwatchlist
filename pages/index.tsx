@@ -6,7 +6,7 @@ import UserHome from '../components/UserHome'
 import Search from '../components/Search'
 import Searching from '../components/Searching'
 import Footer from '../components/Footer'
-import type { SearchData, UserData } from '../utils/interface'
+import type { SearchData, ShowData, UserData } from '../utils/interface'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
@@ -33,6 +33,19 @@ const Home: NextPage = () => {
       saveToStorage(newUserData)
     }
   }
+  const updateMovieDate =(id:number, lastSeen:Date)=>{
+    if(user !== null){
+      const updatedMovie = user.movies.find(movie => movie.id === id)
+      if(updatedMovie !== undefined){
+        if(lastSeen !== undefined){
+          updatedMovie.lastSeen = lastSeen
+          const newMovies = user.movies.filter(movie => movie.id !== id)
+          const newUserData = {movies:[...newMovies, updatedMovie], shows:[...user.shows]}
+          setUser(newUserData)
+        }
+      }
+    }
+  }
   const removeMovie = (id:number)=>{
     if(user!==null){
       const newMovies = user.movies.filter(movie => movie.id !== id)
@@ -53,6 +66,19 @@ const Home: NextPage = () => {
       const newUserData = {movies:[...user.movies], shows:[...user.shows, {...showToAdd}]}
       setUser(newUserData)
       saveToStorage(newUserData)
+    }
+  }
+  const updateShowDate =(id:number, lastSeen:Date)=>{
+    if(user !== null){
+      const updatedShow = user.shows.find(show => show.id === id)
+      if(updatedShow !== undefined){
+        if(lastSeen !== undefined){
+          updatedShow.lastSeen = lastSeen
+          const newShows = user.shows.filter(show => show.id !== id)
+          const newUserData = {movies:[...user.movies], shows:[...newShows, updatedShow]}
+          setUser(newUserData)
+        }
+      }
     }
   }
   const removeShow = (id:number)=>{

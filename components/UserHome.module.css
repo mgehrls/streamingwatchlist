@@ -34,13 +34,13 @@
     align-items: center;
 }
 .listItemContainer{
-    padding:0px 5px 5px 5px;
+    padding:10px 5px 10px 5px;
     display:flex;
     flex-direction: column;
     position:relative;
     width:100%;
     background-color: rgba(37, 37, 37, .5);
-    border-bottom: 3px solid white;
+    border-bottom: 1px solid white;
 }
 .listItemDisplay{
     display:flex;
@@ -66,7 +66,6 @@
 }
 .listItemTitle{
     color:white;
-    text-shadow:var(--ts);
     max-width: 300px;
     text-overflow: clip;
 }
@@ -77,11 +76,12 @@
     position:relative;
 }
 .listItemLastSeenFacade{
-    color:white;
+    color:var(--clr-light-accent);
     cursor: pointer;
     padding:0;
     margin:0;
     line-height: .8;
+    text-shadow: var(--ts);
 }
 .listItemLastSeen{
     position:absolute;
@@ -90,6 +90,11 @@
     background-color:transparent;
     outline: none;
     border:none;
+}
+.listItemRemove{
+    cursor:pointer;
+    align-self: flex-end;
+    color:red;
 }
 .listItemOptionsContainer{
     display:flex;
