@@ -9,9 +9,7 @@ import type { SearchData, UserData } from '../utils/interface'
 import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
-  const [searchData, setSearchData] = useState<SearchData | null>(null)
   const [user, setUser] = useState<UserData>({movies:[], shows:[]})
-  let heroDisplay:JSX.Element = <></>
 
   useEffect(()=>{
     const stringFromStorage = localStorage.getItem("streamingWatchlist")
@@ -89,14 +87,6 @@ const Home: NextPage = () => {
       saveToStorage(newUserData)
     }
   }
-  const SearchProps = {
-    searchData: searchData,
-    addMovie: addMovie,
-    removeMovie: removeMovie,
-    addShow: addShow,
-    removeShow:removeShow,
-    user: user,
-  }
   const TrendHeroProps = {
     removeShow:removeShow,
     removeMovie: removeMovie,
@@ -110,7 +100,8 @@ const Home: NextPage = () => {
     user: user,
     updateMovieDate: updateMovieDate,
     updateShowDate: updateShowDate,
-  }
+}
+
 
   return (
     <div className={styles.container}>
