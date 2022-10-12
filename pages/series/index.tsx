@@ -2,13 +2,14 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
 import Header from '../../components/Header'
-import UserHome from '../../components/UserHome'
 import Search from '../../components/Search'
 import Footer from '../../components/Footer'
 import type { SearchData, ShowData, UserData } from '../../utils/interface'
 import styles from '../../styles/Home.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
+import SidebarList from '../../components/SidebarList'
+import TrendingHero from '../../components/TrendingHero'
 
 const Home: NextPage = () => {
   const [searchData, setSearchData] = useState<SearchData | null>(null)
@@ -104,18 +105,28 @@ const Home: NextPage = () => {
     removeShow:removeShow,
     user: user,
   }
-  const UserHomeProps = {
+  const TrendHeroProps = {
     removeShow:removeShow,
     removeMovie: removeMovie,
     user: user,
     addMovie: addMovie,
     addShow: addShow,
+  }
+  const SidebarListProps = {
+    removeMovie: removeMovie,
+    removeShow: removeShow,
+    user: user,
     updateMovieDate: updateMovieDate,
-    updateShowDate: updateShowDate
+    updateShowDate: updateShowDate,
   }
   switch(display){
     case('home'):
-    heroDisplay = <UserHome {...UserHomeProps} />
+    heroDisplay = (
+      <div className={styles.homeContainer}>
+        <TrendingHero {...TrendHeroProps} />
+        {user.shows.length || user.movies.length ? <SidebarList {...SidebarListProps} /> : ""}
+      </div>
+    )
       break
     case("search"):
       heroDisplay = <Search {...SearchProps}/>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { UserData } from '../utils/interface';
 import SmallMediaDisplay from './SmallMediaDisplay'
-import styles from './UserHome.module.css'
+import styles from './SidebarList.module.css'
 
 interface SidebarProps{
   removeMovie: (id: number) => void;

@@ -1,4 +1,4 @@
-import styles from './UserHome.module.css'
+import styles from './SidebarList.module.css'
 import useHover from '../utils/useHover'
 import Image from "next/image"
 import React, { useState } from 'react';

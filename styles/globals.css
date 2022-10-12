@@ -36,3 +36,9 @@ body{
         -2px -2px 2px black, 
         -2px 2px 2px black;
 }
+.homeContainer{
+  width:100%;
+  max-width:100vw;
+  display:flex;
+  justify-content: space-between;
+}
