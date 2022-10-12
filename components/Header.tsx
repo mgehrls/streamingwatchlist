@@ -12,7 +12,9 @@ const Header = () => {
     function search(){
         const searchItem = encodeURI((document.getElementById("searchinput") as HTMLInputElement).value)
         if(searchItem){
-            router.push(`/search/${searchItem}`)
+            router.push({
+                pathname:`/search/${searchItem}`
+            })
         }
     }
 
