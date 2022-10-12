@@ -1,20 +1,16 @@
+import { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useState, useEffect } from 'react'
 import Header from '../components/Header'
-import Search from '../components/Search'
+import TrendingHero from '../components/TrendingHero'
+import SidebarList from '../components/SidebarList'
 import Footer from '../components/Footer'
 import type { SearchData, UserData } from '../utils/interface'
 import styles from '../styles/Home.module.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons'
-import SidebarList from '../components/SidebarList'
-import TrendingHero from '../components/TrendingHero'
 
 const Home: NextPage = () => {
   const [searchData, setSearchData] = useState<SearchData | null>(null)
   const [user, setUser] = useState<UserData>({movies:[], shows:[]})
-  const [display, setDisplay] = useState("home")
   let heroDisplay:JSX.Element = <></>
 
   useEffect(()=>{
@@ -93,10 +89,6 @@ const Home: NextPage = () => {
       saveToStorage(newUserData)
     }
   }
-  const HeaderProps = {
-    setSearchData: setSearchData,
-    setDisplay: setDisplay
-  }
   const SearchProps = {
     searchData: searchData,
     addMovie: addMovie,
@@ -119,28 +111,6 @@ const Home: NextPage = () => {
     updateMovieDate: updateMovieDate,
     updateShowDate: updateShowDate,
   }
-  switch(display){
-    case('home'):
-    heroDisplay = (
-        <>
-          <TrendingHero {...TrendHeroProps} />
-          {user.shows.length || user.movies.length ? <SidebarList {...SidebarListProps} /> : ""}
-        </>
-    )
-      break
-    case("search"):
-      heroDisplay = <Search {...SearchProps}/>
-      break
-    case("searching"):
-      heroDisplay = (
-        <div id='result-section'>
-          <div className='searching-container fa-3x'>
-              <FontAwesomeIcon className={styles.searchingSpinner} icon={faSpinner} width={100}/>
-              <h3>Searching...</h3>
-          </div>`
-        </div>
-      )
-    }
 
   return (
     <div className={styles.container}>
@@ -149,11 +119,10 @@ const Home: NextPage = () => {
         <meta name="description" content="Keep track of your favorite shows and movies!" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header {...HeaderProps}/>
+      <Header />
       <div className={styles.main}>
-
-        {heroDisplay}
-        
+        <TrendingHero {...TrendHeroProps} />
+        {user.shows.length || user.movies.length ? <SidebarList {...SidebarListProps} /> : ""} 
       </div>
       <Footer/>
     </div>

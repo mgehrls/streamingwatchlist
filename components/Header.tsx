@@ -3,46 +3,17 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type {SearchData} from "../utils/interface"
 import styles from './Header.module.css'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 const apiKey = process.env.KEY;
-interface HeaderProps{
-    setSearchData: Dispatch<SetStateAction<SearchData | null>>;
-    setDisplay: Dispatch<SetStateAction<string>>;
-}
   
-const Header = ({setSearchData, setDisplay}: HeaderProps) => {
-
+const Header = () => {
+    const router = useRouter()
     function search(){
-        runSearch("multi", (document.getElementById("searchinput") as HTMLInputElement).value)
-    }
-
-    const runSearch:(type:string, searchItem:string) => Promise<SearchData | undefined> = async function(type, searchItem){
-        setDisplay("searching")
-        let url = ""
-
-        if(type === "movie"){
-        url = `https://api.themoviedb.org/3/search/movie?${apiKey}&language=en-US&query=${searchItem}&page=1&include_adult=false`
-        }else if(type === "tv"){
-        url = `https://api.themoviedb.org/3/search/tv?${apiKey}&language=en-US&page=1&query=${searchItem}&include_adult=false`
-        }else{
-        url = `https://api.themoviedb.org/3/search/multi?${apiKey}&language=en-US&query=${searchItem}&page=1&include_adult=false`
-        }
-
+        const searchItem = encodeURI((document.getElementById("searchinput") as HTMLInputElement).value)
         if(searchItem){
-            searchItem = encodeURI(searchItem)
-            fetch(url)
-                .then(res=> res.json())
-                .then((data) => {
-                    if(data !== undefined){
-                        setSearchData(data)
-                        setDisplay("search")
-                    }
-                })
-                .catch((err) => {throw new Error(err)})
-            }else{
-                setDisplay("home")
-                console.error("Nothing in search bar. Search for something.")
-                return undefined
-            }
+            router.push(`/search/${searchItem}`)
+        }
     }
 
     return (
@@ -73,7 +44,7 @@ const Header = ({setSearchData, setDisplay}: HeaderProps) => {
             </div>
             <nav className={styles.nav}>
                 <ul className={styles.navList}>
-                    <li>Series</li>
+                    <Link href={"/series"}><li>Series</li></Link>
                     <li>Movies</li>
                     <li>Account</li>
                 </ul>
