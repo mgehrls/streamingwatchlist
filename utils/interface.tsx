@@ -45,3 +45,11 @@ export interface UserData{
   movies: MovieData[];
   shows: ShowData[];
 }
+
+export interface ResultPropTypes{
+  addMovie: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void
+  removeMovie: (id: number) => void;
+  addShow: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void
+  removeShow: (id: number) => void;
+  user: UserData
+}

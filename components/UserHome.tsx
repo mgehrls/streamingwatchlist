@@ -1,8 +1,8 @@
-import React from 'react'
-import { UserData, SearchData, SearchResult } from '../utils/interface';
-import SmallMediaDisplay from './SmallMediaDisplay';
+import React, { useEffect } from 'react'
+import { UserData, SearchData, SearchResult, ResultPropTypes } from '../utils/interface';
 import styles from './UserHome.module.css'
 import Result from './Result';
+import SidebarList from './SidebarList';
 const apiKey = process.env.KEY;
 interface UserHomeProps{
   addMovie: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void;
@@ -14,13 +14,28 @@ interface UserHomeProps{
   updateShowDate: (id:number, lastSeen: string) => void;
 }
 
-
-
 const UserHome=({removeMovie, removeShow, user, addMovie, addShow, updateMovieDate, updateShowDate}:UserHomeProps)=> {
   const [seriesTrendData, setSeriesTrendData] = React.useState<SearchData | null>(null)
   const [moviesTrendData, setMoviesTrendData] = React.useState<SearchData | null>(null)
+  const ResultProps = {
+    addMovie: addMovie,
+    removeMovie: removeMovie,
+    addShow: addShow,
+    removeShow: removeShow,
+    user: user
+  }
+  const SidebarListProps = {
+    removeMovie: removeMovie,
+    removeShow: removeShow,
+    user: user,
+    updateMovieDate: updateMovieDate,
+    updateShowDate: updateShowDate,
+  }
+  const trendingSeriesDisplay = trendingSeriesSearch(ResultProps)
+  const trendingMoviesDisplay = trendingMoviesSearch(ResultProps)
 
-  React.useEffect(()=>{
+  //get trending data on load
+  useEffect(()=>{
     fetch(`https://api.themoviedb.org/3/trending/tv/day?${apiKey}`)
         .then(res=> res.json())
         .then((data) => {
@@ -45,52 +60,7 @@ const UserHome=({removeMovie, removeShow, user, addMovie, addShow, updateMovieDa
     })
   }, [])
 
-  const smallMovieArray = user.movies.map(movie=>{
-    const SmallMediaDisplayProps = {
-      title: movie.title !== undefined ? movie.title : '',
-      backdropPath: movie.backdropPath !== undefined ? movie.backdropPath : '',
-      posterPath: movie.posterPath !== undefined ? movie.posterPath : '',
-      id: movie.id !== undefined ? movie.id : 0,
-      key: movie.id !== undefined ? movie.id : 0,
-      lastSeen: movie.lastSeen !== undefined ? movie.lastSeen : undefined,
-      removeMovie: removeMovie,
-      updateMovieDate: updateMovieDate
-    }
-    return(
-      <SmallMediaDisplay {...SmallMediaDisplayProps}/>
-    )
-  })
-  const smallSeriesArray = user.shows.map(series=>{
-    const SmallMediaDisplayProps = {
-      title: series.title !== undefined ? series.title : '',
-      backdropPath: series.backdropPath !== undefined ? series.backdropPath : '',
-      posterPath: series.posterPath !== undefined ? series.posterPath : '',
-      id: series.id !== undefined ? series.id : 0,
-      key: series.id !== undefined ? series.id : 0,
-      lastSeen: series.lastSeen !== undefined ? series.lastSeen : undefined,
-      removeShow: removeShow,
-      updateShowDate: updateShowDate
-    }
-    return(
-      <SmallMediaDisplay {...SmallMediaDisplayProps}/>
-    )
-  })
-
-  const ResultProps = {
-    addMovie: addMovie,
-    removeMovie: removeMovie,
-    addShow: addShow,
-    removeShow: removeShow,
-    user: user
-  }
-  interface ResultPropTypes{
-    addMovie: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void
-    removeMovie: (id: number) => void;
-    addShow: (id: number, title: string, description:string, backdropPath:string, posterPath:string) => void
-    removeShow: (id: number) => void;
-    user: UserData
-  }
-
+/* generating trending data results */
 function trendingSeriesSearch(ResultProps: ResultPropTypes){
     let trendingSeriesDisplay: JSX.Element[] | JSX.Element = []
     if(seriesTrendData !== null){
@@ -101,8 +71,6 @@ function trendingSeriesSearch(ResultProps: ResultPropTypes){
       })}
     return trendingSeriesDisplay
     }
-const trendingSeriesDisplay = trendingSeriesSearch(ResultProps)
-
 function trendingMoviesSearch(ResultProps: ResultPropTypes){
     let trendingMoviesDisplay: JSX.Element[] | JSX.Element = []
     if(moviesTrendData !== null){
@@ -114,21 +82,6 @@ function trendingMoviesSearch(ResultProps: ResultPropTypes){
     return trendingMoviesDisplay
     }
 
-const yourList = ( 
-  <aside className={styles.sidebarContainer}>
-  <h3>Your List</h3>
-  <div className={styles.sidebarSeriesContainer}>
-    {smallSeriesArray}
-  </div>
-  <div className={styles.sidebarSeriesContainer}>
-    {smallMovieArray}
-  </div>
-</aside>
-
-)
-
-
-const trendingMoviesDisplay = trendingMoviesSearch(ResultProps)
     return (
       <div className={styles.homeContainer}>
   
@@ -142,12 +95,26 @@ const trendingMoviesDisplay = trendingMoviesSearch(ResultProps)
             {trendingMoviesDisplay}
           </div>
         </main>
-  
-      {smallSeriesArray.length || smallMovieArray.length ? yourList : ""}
+
+      {user.shows.length || user.movies.length ? <SidebarList {...SidebarListProps} /> : ""}
   
       </div>
     )
-
-
 }
+
+export async function getStaticProps() {
+  const res1 = await fetch(`https://api.themoviedb.org/3/trending/movie/day?${apiKey}`)
+  const movieTrendDataFromProps = await res1.json()
+  const res2 = await fetch(`https://api.themoviedb.org/3/trending/tv/day?${apiKey}`)
+  const seriesTrendDataFromProps = await res2.json()
+
+  return {
+    props: {
+      movieTrendDataFromProps,
+      seriesTrendDataFromProps,
+    },
+  }
+}
+
+
 export default UserHome

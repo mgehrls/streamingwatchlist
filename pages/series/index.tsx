@@ -1,12 +1,12 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useState, useEffect } from 'react'
-import Header from '../components/Header'
-import UserHome from '../components/UserHome'
-import Search from '../components/Search'
-import Footer from '../components/Footer'
-import type { SearchData, UserData } from '../utils/interface'
-import styles from '../styles/Home.module.css'
+import Header from '../../components/Header'
+import UserHome from '../../components/UserHome'
+import Search from '../../components/Search'
+import Footer from '../../components/Footer'
+import type { SearchData, ShowData, UserData } from '../../utils/interface'
+import styles from '../../styles/Home.module.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
@@ -121,14 +121,13 @@ const Home: NextPage = () => {
       heroDisplay = <Search {...SearchProps}/>
       break
     case("searching"):
-      heroDisplay = (
+      heroDisplay = (        
         <div id='result-section'>
           <div className='searching-container fa-3x'>
               <FontAwesomeIcon className={styles.searchingSpinner} icon={faSpinner} width={100}/>
               <h3>Searching...</h3>
-          </div>`
-        </div>
-      )
+          </div>
+        </div>)
     }
 
   return (
