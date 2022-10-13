@@ -43,12 +43,12 @@
     position:relative;
 }
 .listItemLastSeenFacade{
-    color:var(--clr-light-accent);
+    color:#acacac;
     cursor: pointer;
     padding:0;
     margin:0;
     line-height: .8;
-    text-shadow: var(--ts);
+    font-style: italic;
 }
 .listItemLastSeen{
     position:absolute;
@@ -60,7 +60,7 @@
 }
 .listItemRemove{
     cursor:pointer;
-    color:red;
+    color:rgb(250, 37, 37);
     position:absolute;
     bottom:5px;
     right:5px;

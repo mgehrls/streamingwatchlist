@@ -1,3 +1,5 @@
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import Footer from '../../../components/Footer';
@@ -5,6 +7,7 @@ import Header from '../../../components/Header';
 import Search from '../../../components/Search';
 import SidebarList from '../../../components/SidebarList';
 import { SearchData, UserData } from '../../../utils/interface';
+import styles from "../../../components/Search.module.css"
 
 
 export default function SearchResults() {
@@ -124,14 +127,23 @@ export default function SearchResults() {
         removeShow:removeShow,
         user: user,
       }
+    
+    const searchLoading = (          
+      <div className='searching-container fa-3x'>
+        <FontAwesomeIcon className={styles.searchingSpinner} icon={faSpinner} width={100}/>
+        <h3>Searching...</h3>
+      </div>
+)
 
 
     return (
-        <>
+        <div className={styles.wholePage}>
             <Header />
-                <Search {...SearchProps}/>
+              <div className={styles.mainContainer}>
+                {searchData ? <Search {...SearchProps}/> : searchLoading}
                 {user.shows.length || user.movies.length ? <SidebarList {...SidebarListProps} /> : ""} 
+              </div>
             <Footer/>
-        </>
+        </div>
     )
     }

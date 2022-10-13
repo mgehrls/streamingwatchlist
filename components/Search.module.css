@@ -1,7 +1,17 @@
+.wholePage{
+    min-height: 100vh;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.mainContainer{
+    display:flex;
+    justify-content: center;
+    align-items: flex-start;
+}
 .searchingSpinner{
     animation: rotate 1s linear infinite
 }
-
 
 @keyframes rotate {
     0%{
